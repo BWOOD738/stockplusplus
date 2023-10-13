@@ -37,10 +37,11 @@ def stock_to_excel():
     ##Exports the DataFrame to Excel
     output_file = os.path.join(output_folder, 'stock_info.xlsx')
     stock_data.to_excel(output_file)
-
-if __name__ == "__main__":
     stock_data = get_stock_data(top_tickers)
+    
+"""if __name__ == "__main__":
+
 
     #stock_to_excel()
 
-    #print(stock_data)
+    #print(stock_data)"""
