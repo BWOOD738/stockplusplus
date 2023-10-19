@@ -1,3 +1,10 @@
+""""
+Author(s): EL
+
+Purpose: Establishes connection to yfinace api and provides
+some useful functions.
+"""
+
 import pandas as pd
 import yfinance as yf
 from datetime import datetime, timedelta
@@ -12,6 +19,12 @@ print(start_date)
 #pd.set_option("display.max_rows", None)  # Display all rows
 #pd.set_option("display.max_columns", None)  # Display all columns
 
+top_tickers = ["AAPL", "MSFT", "AMZN", "NVDA", "META", "TSLA", "GOOGL", "GOOG", "AVGO", "COST", "ADBE", "PEP", "CSCO", "CMCSA", "AMD", "TMUS", "NFLX", "INTC", "AMGN", "INTU", 
+"TXN", "HON", "QCOM", "AMAT", "BKNG", "SBUX", "ADP", "ISRG", "GILD", "VRTX", "REGN", "ADI", "MDLZ", "LRCX", "PANW", "MU", "SNPS", "PDD", "CDNS", "CHTR", "KLAC", "PYPL", "CSX", 
+"MELI", "MAR", "ABNB", "ORLY", "ASML", "NXPI", "CTAS", "MNST", "MRVL", "ODFL", "FTNT", "WDAY", "ADSK", "LULU", "PCAR", "MCHP", "CPRT", "PAYX", "CRWD", "ON", "KDP", "SGEN", "EXC", 
+"KHC", "AZN", "MRNA", "AEP", "ROST", "BIIB", "TTD", "IDXX", "CEG", "VRSK", "BKR", "EA", "CTSH", "CSGP", "XEL", "FAST", "GFS", "GEHC", "DXCM", "TEAM", "FANG", "DDOG", "WBD",
+"ANSS", "ZS", "DLTR", "EBAY", "ILMN", "ALGN", "WBA", "SIRI", "ENPH", "ZM", "JD", "LCID"]
+
 def get_stock_data(top_tickers):
     data_frames = []
 
@@ -23,14 +36,6 @@ def get_stock_data(top_tickers):
     stock_data.columns = pd.MultiIndex.from_product([top_tickers, ["Close", "Volume"]],names=["Ticker Symbol", "Attributes"])
 
     return stock_data
-
-
-top_tickers = ["AAPL", "MSFT", "AMZN", "NVDA", "META", "TSLA", "GOOGL", "GOOG", "AVGO", "COST", "ADBE", "PEP", "CSCO", "CMCSA", "AMD", "TMUS", "NFLX", "INTC", "AMGN", "INTU", 
-"TXN", "HON", "QCOM", "AMAT", "BKNG", "SBUX", "ADP", "ISRG", "GILD", "VRTX", "REGN", "ADI", "MDLZ", "LRCX", "PANW", "MU", "SNPS", "PDD", "CDNS", "CHTR", "KLAC", "PYPL", "CSX", 
-"MELI", "MAR", "ABNB", "ORLY", "ASML", "NXPI", "CTAS", "MNST", "MRVL", "ODFL", "FTNT", "WDAY", "ADSK", "LULU", "PCAR", "MCHP", "CPRT", "PAYX", "CRWD", "ON", "KDP", "SGEN", "EXC", 
-"KHC", "AZN", "MRNA", "AEP", "ROST", "BIIB", "TTD", "IDXX", "CEG", "VRSK", "BKR", "EA", "CTSH", "CSGP", "XEL", "FAST", "GFS", "GEHC", "DXCM", "TEAM", "FANG", "DDOG", "WBD",
-"ANSS", "ZS", "DLTR", "EBAY", "ILMN", "ALGN", "WBA", "SIRI", "ENPH", "ZM", "JD", "LCID"]
-
 
 def stock_to_excel():
     output_folder = r"Your File path here"
