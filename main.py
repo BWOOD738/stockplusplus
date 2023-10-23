@@ -26,12 +26,43 @@ label.pack(side="left", padx=10, pady=10)
 button_frame = tk.CTkFrame(label_frame)
 button_frame.pack(side="left")
 
-# Market Capitalization
-market_cap_button = tk.CTkButton(button_frame, text="Market Capitalization")
+
+# Update Market Capitalization Button Text
+# CURRENT BUG: Text will not reset when alternating buttons since the []_text variable is saved
+def change_text_mcap():
+    global mcap_text
+    if mcap_text == "Market Capitalization":
+        mcap_text = "Market Capitalization ↑"
+    elif mcap_text == "Market Capitalization ↑":
+        mcap_text = "Market Capitalization ↓"
+    elif mcap_text == "Market Capitalization ↓":
+        mcap_text = "Market Capitalization"
+    market_cap_button.configure(text=mcap_text)
+    pe_ratio_button.configure(text="Price to Earnings")
+
+
+# Market Capitalization Button
+mcap_text = "Market Capitalization"
+market_cap_button = tk.CTkButton(button_frame, text=mcap_text, command=change_text_mcap)
 market_cap_button.pack(side="left", padx=10, pady=10)
 
+
+# Update Price to Earnings Button Text
+def change_text_pe():
+    global pe_text
+    if pe_text == "Price to Earnings":
+        pe_text = "Price to Earnings ↑"
+    elif pe_text == "Price to Earnings ↑":
+        pe_text = "Price to Earnings ↓"
+    elif pe_text == "Price to Earnings ↓":
+        pe_text = "Price to Earnings"
+    pe_ratio_button.configure(text=pe_text)
+    market_cap_button.configure(text="Market Capitalization")
+
+
 # Price to Earnings
-pe_ratio_button = tk.CTkButton(button_frame, text="Price to Earnings")
+pe_text = "Price to Earnings"
+pe_ratio_button = tk.CTkButton(button_frame, text=pe_text, command=change_text_pe)
 pe_ratio_button.pack(side="left", padx=10, pady=10)
 
 # Refresh Button
