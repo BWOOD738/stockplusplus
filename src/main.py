@@ -29,15 +29,16 @@ button_frame.pack(side="left")
 
 
 # Update Market Capitalization Button Text
-# CURRENT BUG: Text will not reset when alternating buttons since the []_text variable is saved
 def change_text_mcap():
     global mcap_text
+    global pe_text
     if mcap_text == "Market Capitalization":
         mcap_text = "Market Capitalization ↑"
     elif mcap_text == "Market Capitalization ↑":
         mcap_text = "Market Capitalization ↓"
     elif mcap_text == "Market Capitalization ↓":
         mcap_text = "Market Capitalization"
+    pe_text = "Price to Earnings"
     pe_ratio_button.configure(text="Price to Earnings")
     market_cap_button.configure(text=mcap_text)
 
@@ -51,12 +52,14 @@ market_cap_button.pack(side="left", padx=10, pady=10)
 # Update Price to Earnings Button Text
 def change_text_pe():
     global pe_text
+    global mcap_text
     if pe_text == "Price to Earnings":
         pe_text = "Price to Earnings ↑"
     elif pe_text == "Price to Earnings ↑":
         pe_text = "Price to Earnings ↓"
     elif pe_text == "Price to Earnings ↓":
         pe_text = "Price to Earnings"
+    mcap_text = "Market Capitalization"
     market_cap_button.configure(text="Market Capitalization")
     pe_ratio_button.configure(text=pe_text)
 
