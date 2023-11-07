@@ -20,7 +20,7 @@ label_frame.pack(side="top", fill="x")
 
 # Create a label widget
 custom_font = ("Lato", 24)
-label = tk.CTkLabel(label_frame, text="Stock List", font=custom_font)
+label = tk.CTkLabel(label_frame, text="Stock List 📈", font=custom_font)
 label.pack(side="left", padx=10, pady=10)
 
 # Create a frame to hold the buttons
@@ -30,8 +30,7 @@ button_frame.pack(side="left")
 
 # Update Market Capitalization Button Text
 def change_text_mcap():
-    global mcap_text
-    global pe_text
+    global mcap_text, pe_text, dc_text
     if mcap_text == "Market Capitalization":
         mcap_text = "Market Capitalization ↑"
     elif mcap_text == "Market Capitalization ↑":
@@ -39,8 +38,42 @@ def change_text_mcap():
     elif mcap_text == "Market Capitalization ↓":
         mcap_text = "Market Capitalization"
     pe_text = "Price to Earnings"
+    dc_text = "Daily % Change"
     pe_ratio_button.configure(text="Price to Earnings")
+    dc_button.configure(text="Daily % Change")
     market_cap_button.configure(text=mcap_text)
+
+
+# Update Price to Earnings Button Text
+def change_text_pe():
+    global pe_text, mcap_text, dc_text
+    if pe_text == "Price to Earnings":
+        pe_text = "Price to Earnings ↑"
+    elif pe_text == "Price to Earnings ↑":
+        pe_text = "Price to Earnings ↓"
+    elif pe_text == "Price to Earnings ↓":
+        pe_text = "Price to Earnings"
+    mcap_text = "Market Capitalization"
+    dc_text = "Daily % Change"
+    market_cap_button.configure(text="Market Capitalization")
+    dc_button.configure(text="Daily % Change")
+    pe_ratio_button.configure(text=pe_text)
+
+
+# Update Daily Percentage Change Button
+def change_text_dc():
+    global pe_text, mcap_text, dc_text
+    if dc_text == "Daily % Change":
+        dc_text = "Daily % Change ↑"
+    elif dc_text == "Daily % Change ↑":
+        dc_text = "Daily % Change ↓"
+    elif dc_text == "Daily % Change ↓":
+        dc_text = "Daily % Change"
+    mcap_text = "Market Capitalization"
+    pe_text = "Price to Earnings"
+    market_cap_button.configure(text="Market Capitalization")
+    pe_ratio_button.configure(text="Price to Earnings")
+    dc_button.configure(text=dc_text)
 
 
 # Market Capitalization Button
@@ -49,25 +82,16 @@ market_cap_button = tk.CTkButton(button_frame, text=mcap_text, command=change_te
 market_cap_button.pack(side="left", padx=10, pady=10)
 
 
-# Update Price to Earnings Button Text
-def change_text_pe():
-    global pe_text
-    global mcap_text
-    if pe_text == "Price to Earnings":
-        pe_text = "Price to Earnings ↑"
-    elif pe_text == "Price to Earnings ↑":
-        pe_text = "Price to Earnings ↓"
-    elif pe_text == "Price to Earnings ↓":
-        pe_text = "Price to Earnings"
-    mcap_text = "Market Capitalization"
-    market_cap_button.configure(text="Market Capitalization")
-    pe_ratio_button.configure(text=pe_text)
-
-
-# Price to Earnings
+# Price to Earnings Button
 pe_text = "Price to Earnings"
 pe_ratio_button = tk.CTkButton(button_frame, text=pe_text, command=change_text_pe)
 pe_ratio_button.pack(side="left", padx=10, pady=10)
+
+
+# Daily Percentage Change Button
+dc_text = "Daily % Change"
+dc_button = tk.CTkButton(button_frame, text=dc_text, command=change_text_dc)
+dc_button.pack(side="left", padx=10, pady=10)
 
 # Refresh Button
 refresh_button = tk.CTkButton(button_frame, text="Refresh")
@@ -78,7 +102,7 @@ main_frame = tk.CTkFrame(window)
 main_frame.pack(side="top", fill="both", expand=True, padx=20, pady=20)
 
 # Calculate the height for the stock frame
-stock_frame_height = window.winfo_height() - label_frame.winfo_reqheight() - 40  # Subtract label frame height and add some padding
+stock_frame_height = window.winfo_height() - label_frame.winfo_reqheight() - 40  # Subtract label frame height
 stock_frame_width = window.winfo_width() - 40  # Add some padding
 
 # Create a frame for the stocks and set its dimensions
