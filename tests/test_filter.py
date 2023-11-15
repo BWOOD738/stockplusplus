@@ -1,4 +1,3 @@
-import random
 def filter_sorting(ltest, filter, sort, sbound, ebound, bound):
     # Duplicate the input list
     filtered_list = ltest[:]
