@@ -8,12 +8,10 @@ from api import get_stock_data, top_tickers,start_date,end_date
 import yfinance as yf
 import pandas as pd
 
-# TODO We should find a way to call the get_stock_data() function only once for all filter functions since it is a very expensive function.
-
  # This array is for testing so I don't have to download 100 stocks everytime
-tickers = ["AAPL", "MSFT", "AMZN", "NVDA", "META"]
+tickers_ = ["AAPL", "MSFT", "AMZN", "NVDA", "META"]
 
-def order_by(stock_symbol) -> list:
+def order_by(tickers) -> list:
 
     # NOTE Make sure to put "top_tickers" in the argument list below
     data = get_stock_data(tickers)
@@ -23,8 +21,28 @@ def order_by(stock_symbol) -> list:
 
 # Gets the market cap of the stocks. Just takes volume * price per share
 def market_capitalization(stock_symbol):
-    stocks = []
+    try:
+        ticker = yf.Ticker(stock_symbol)
+        todays_data = ticker.history(period='1d')
+
+        price = todays_data['Close'].iloc[0]
+        volume = todays_data['Volume'].iloc[0]
+
+        return price * volume
     
+    except Exception as e:
+        print(f"Error getting market cap for {stock_symbol}: {e}")
+
+def moving_average(stock_symbol, window_size=10):
+    try:
+        data = yf.Ticker(stock_symbol)
+        close_prices = data.history(period='1y')['Close']
+        ma = close_prices.rolling(window=window_size).mean()
+        return ma   
+    except Exception as e:
+        print(f"Error getting mean average for {stock_symbol}: {e}")
+
+
 # This function is kinda messed up because it only allows you to get the yield for one stock at a time. The ticker symbol must also be single quotes. Some real fuckery is happening here.
 def dividend_yield(stock_symbol):
     if not isinstance(stock_symbol, str):
@@ -43,6 +61,3 @@ def dividend_yield(stock_symbol):
         return pd.DataFrame()
 
     return dividends
-
-
-

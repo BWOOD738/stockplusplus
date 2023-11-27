@@ -3,8 +3,8 @@
 ## Order By
 This filter will show you stocks in order from best performing to worst performing. 
 
-## Price over Earnings ratio (P/E Ratio)
-This filter is useful to determine how over or undervalued a stock is. This filter has no particular order.
+## Moving Average
+This filter is used to remove short term fluctuations and show the average long term progress of a stock. 
 
 ## Market capitalization
 This is a useful filter to find out the size of the company you want to invest in.
