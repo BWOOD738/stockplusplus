@@ -1,10 +1,10 @@
 """
-Author(s): BW,JP
+Author(s): BW
 
 Purpose: Provides functions to display stocks in a certain way
 """
 
-from api import get_stock_data, top_tickers,start_date,end_date
+from api import get_stock_data,start_date,end_date
 import yfinance as yf
 import pandas as pd
 
@@ -19,7 +19,7 @@ def order_by(tickers) -> list:
     data_array = [data]
     return sorted(data_array)
 
-# Gets the market cap of the stocks. Just takes volume * price per share
+# Gets the market cap of a stock. Just takes volume * price per share
 def market_capitalization(stock_symbol):
     try:
         ticker = yf.Ticker(stock_symbol)
@@ -29,18 +29,19 @@ def market_capitalization(stock_symbol):
         volume = todays_data['Volume'].iloc[0]
 
         return price * volume
-    
     except Exception as e:
         print(f"Error getting market cap for {stock_symbol}: {e}")
 
 def moving_average(stock_symbol, window_size=10):
     try:
         data = yf.Ticker(stock_symbol)
-        close_prices = data.history(period='1y')['Close']
+        close_prices = data.history(period='1mo')['Close']
         ma = close_prices.rolling(window=window_size).mean()
-        return ma   
+        last_ma_value = ma.iloc[-1]
+        return last_ma_value
     except Exception as e:
         print(f"Error getting mean average for {stock_symbol}: {e}")
+
 
 
 # This function is kinda messed up because it only allows you to get the yield for one stock at a time. The ticker symbol must also be single quotes. Some real fuckery is happening here.
@@ -55,6 +56,7 @@ def dividend_yield(stock_symbol):
     
     try:
         dividends = ticker.dividends
+
     except AttributeError:
         # Handle the case where there are no dividends data
         print(f"No dividend data found for {stock_symbol}")
